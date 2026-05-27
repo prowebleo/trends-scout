@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Legend,
+  Brush,
 } from "recharts"
 
 type Props = {
@@ -59,6 +60,13 @@ export default function EngagementChart({ data, subreddit }: Props) {
           />
           <Legend
             wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }}
+          />
+          <Brush
+            dataKey="label"
+            height={28}
+            stroke="#7c3aed"
+            fill="#f5f3ff"
+            travellerWidth={10}
           />
           <Bar
             dataKey="ups"

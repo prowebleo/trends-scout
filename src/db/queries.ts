@@ -101,7 +101,9 @@ export async function getTopPosts(
 ): Promise<RedditRow[]> {
   const db = await getDb()
   const result = await db.execute({
-    sql: `SELECT * FROM reddit_snapshots WHERE subreddit = ? ORDER BY ups DESC LIMIT ?`,
+    sql: `SELECT * FROM reddit_snapshots WHERE id IN (
+      SELECT MAX(id) FROM reddit_snapshots WHERE subreddit = ? GROUP BY post_id
+    ) ORDER BY ups DESC LIMIT ?`,
     args: [subreddit, limit],
   })
   return result.rows as unknown as RedditRow[]
