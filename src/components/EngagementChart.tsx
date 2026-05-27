@@ -38,24 +38,40 @@ export default function EngagementChart({ data, subreddit }: Props) {
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-      <h3 className="mb-4 text-sm font-semibold text-gray-900">
-        Top Post Engagement — r/{subreddit}
-      </h3>
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-gray-900">Post Engagement</h3>
+        <p className="text-xs text-gray-400">r/{subreddit} — top post upvotes & comments</p>
+      </div>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis dataKey="date" tick={{ fontSize: 12 }} stroke="#9ca3af" />
-          <YAxis tick={{ fontSize: 12 }} stroke="#9ca3af" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} width={40} />
           <Tooltip
             contentStyle={{
-              borderRadius: "8px",
-              border: "1px solid #e5e7eb",
+              borderRadius: "10px",
+              border: "1px solid #e2e8f0",
               fontSize: "13px",
+              boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.05)",
             }}
           />
-          <Legend />
-          <Bar dataKey="ups" name="Upvotes" fill="#2563eb" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="comments" name="Comments" fill="#10b981" radius={[4, 4, 0, 0]} />
+          <Legend
+            wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }}
+          />
+          <Bar
+            dataKey="ups"
+            name="Upvotes"
+            fill="#7c3aed"
+            radius={[4, 4, 0, 0]}
+            maxBarSize={40}
+          />
+          <Bar
+            dataKey="comments"
+            name="Comments"
+            fill="#10b981"
+            radius={[4, 4, 0, 0]}
+            maxBarSize={40}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

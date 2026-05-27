@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Trends Scout",
-  description: "Reddit trend intelligence & analytics",
+  description: "Reddit community intelligence & analytics",
 }
 
 export default function RootLayout({

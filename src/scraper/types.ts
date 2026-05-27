@@ -12,7 +12,7 @@ export type RedditSnapshot = {
   createdUtc: number | null
 }
 
-export type DecodoRedditRawPost = {
+export type RedditRawPost = {
   id?: string
   title?: string
   author?: string
@@ -27,25 +27,25 @@ export type DecodoRedditRawPost = {
   [key: string]: unknown
 }
 
-export type DecodoRedditChild = {
+export type RedditChild = {
   kind?: string
-  data?: DecodoRedditRawPost
+  data?: RedditRawPost
 }
 
-export type DecodoRedditContent = {
+export type RedditContent = {
   kind?: string
   data?: {
-    children?: DecodoRedditChild[]
+    children?: RedditChild[]
     dist?: number
   }
 }
 
-export type DecodoWrappedResult = {
-  content?: DecodoRedditContent
+export type WrappedResult = {
+  content?: RedditContent
 }
 
-export type DecodoResponse = {
-  results?: DecodoWrappedResult[] | DecodoRedditRawPost
+export type ScraperResponse = {
+  results?: WrappedResult[] | RedditRawPost
   errors?: unknown[]
   status_code?: number
   task_id?: string

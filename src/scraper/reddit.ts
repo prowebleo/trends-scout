@@ -1,16 +1,16 @@
 import type {
   RedditSnapshot,
-  DecodoResponse,
-  DecodoWrappedResult,
-  DecodoRedditContent,
-  DecodoRedditRawPost,
+  ScraperResponse,
+  WrappedResult,
+  RedditContent,
+  RedditRawPost,
 } from "./types"
 
-const API_URL = "https://scraper-api.decodo.com/v2/scrape"
+const API_URL = process.env.SCRAPER_API_URL ?? ""
 
 function getAuth(): string {
-  const token = process.env.DECODO_API_TOKEN
-  if (!token) throw new Error("Falta DECODO_API_TOKEN en .env.local")
+  const token = process.env.SCRAPER_API_TOKEN
+  if (!token) throw new Error("Falta SCRAPER_API_TOKEN en .env.local")
   return `Basic ${token}`
 }
 
@@ -20,7 +20,7 @@ function toInteger(value: unknown): number | null {
   return Number.isFinite(n) ? Math.round(n) : null
 }
 
-function extractPost(raw: DecodoRedditRawPost, subreddit: string): RedditSnapshot {
+function extractPost(raw: RedditRawPost, subreddit: string): RedditSnapshot {
   return {
     subreddit,
     postId: raw.id ?? "",
@@ -36,13 +36,13 @@ function extractPost(raw: DecodoRedditRawPost, subreddit: string): RedditSnapsho
   }
 }
 
-function hasContent(data: DecodoResponse): data is { results: [DecodoWrappedResult] } {
+function hasContent(data: ScraperResponse): data is { results: [WrappedResult] } {
   return Array.isArray(data.results) && data.results.length > 0 && "content" in data.results[0]
 }
 
-function getChildren(data: DecodoResponse): DecodoRedditRawPost[] {
+function getChildren(data: ScraperResponse): RedditRawPost[] {
   if (hasContent(data)) {
-    const content = data.results[0].content as DecodoRedditContent | undefined
+    const content = data.results[0].content as RedditContent | undefined
     const children = content?.data?.children
     if (Array.isArray(children)) {
       return children.map((c) => c.data ?? {}).filter(Boolean)
@@ -67,10 +67,10 @@ export async function scrapeSubreddit(subreddit: string): Promise<RedditSnapshot
   })
 
   if (!response.ok) {
-    throw new Error(`Decodo error ${response.status}: ${await response.text()}`)
+    throw new Error(`Scraper error ${response.status}: ${await response.text()}`)
   }
 
-  const data: DecodoResponse = await response.json()
+  const data: ScraperResponse = await response.json()
   const posts = getChildren(data)
   return posts.map((raw) => extractPost(raw, subreddit))
 }
