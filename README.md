@@ -1,43 +1,24 @@
 # Trends Scout
 
-Reddit trend intelligence & analytics — scrapes top posts from subreddits daily and visualizes engagement metrics.
+Pulls top posts from Reddit subreddits (wallstreetbets, cryptocurrency, python) and shows engagement metrics — upvotes, comments, upvote ratio. Subreddit selector to switch between communities.
 
-![Dashboard Screenshot](https://github.com/prowebleo/trends-scout/raw/main/screenshot.png)
+## Why
 
-## Features
-
-- **Multi-subreddit** — Tracks wallstreetbets, cryptocurrency, python simultaneously
-- **Engagement metrics** — Upvotes, comments, upvote ratio per post
-- **Subreddit selector** — Pill-shaped buttons to switch between communities
-- **Bar charts** — Ups vs comments comparison over time
-- **CSV export** — Download post data as CSV with one click
-- **Scheduled scraping** — GitHub Action runs daily at 8 AM UTC
+Wanted to see what content gains traction in different communities without manually browsing. The scraper collects 25 posts per subreddit daily at 8 AM UTC.
 
 ## Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Database | Turso (libSQL) |
-| Charts | Recharts |
-| Scraping | Automated web scraping pipeline |
-| Scheduling | GitHub Actions |
-| Deployment | Vercel |
+Next.js 15, Turso (libSQL), Recharts, GitHub Actions, Vercel
 
-## Live Demo
+## Live
 
 **[trends-scout-gilt.vercel.app](https://trends-scout-gilt.vercel.app)**
 
-## Local Development
+## Running locally
 
 ```bash
 npm install
-cp .env.example .env
+# configure .env.local with your tokens
 npm run dev
-```
-
-## Run Scraper
-
-```bash
 npm run scrape
 ```
