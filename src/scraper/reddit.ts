@@ -6,7 +6,9 @@ import type {
   RedditRawPost,
 } from "./types"
 
-const API_URL = process.env.SCRAPER_API_URL ?? ""
+function getApiUrl(): string {
+  return process.env.SCRAPER_API_URL ?? ""
+}
 
 function getAuth(): string {
   const token = process.env.SCRAPER_API_TOKEN
@@ -54,7 +56,7 @@ function getChildren(data: ScraperResponse): RedditRawPost[] {
 export async function scrapeSubreddit(subreddit: string): Promise<RedditSnapshot[]> {
   const url = `https://www.reddit.com/r/${subreddit}/`
 
-  const response = await fetch(API_URL, {
+  const response = await fetch(getApiUrl(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
