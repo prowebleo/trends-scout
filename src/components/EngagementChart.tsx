@@ -19,14 +19,16 @@ type Props = {
 export default function EngagementChart({ data, subreddit }: Props) {
   const chartData = data
     .filter((d) => d.ups > 0)
-    .map((d) => ({
-      date: new Date(d.date).toLocaleDateString("en", {
-        month: "short",
-        day: "numeric",
-      }),
-      ups: d.ups,
-      comments: d.comments,
-    }))
+    .map((d) => {
+      const dt = new Date(d.date)
+      return {
+        date: dt.toISOString(),
+        label: dt.toLocaleDateString("en", { month: "short", day: "numeric" }) +
+          " " + dt.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" }),
+        ups: d.ups,
+        comments: d.comments,
+      }
+    })
 
   if (chartData.length === 0) {
     return (
@@ -45,7 +47,7 @@ export default function EngagementChart({ data, subreddit }: Props) {
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-          <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
+          <XAxis dataKey="label" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} width={40} />
           <Tooltip
             contentStyle={{
