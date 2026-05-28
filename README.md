@@ -1,6 +1,6 @@
 # Trends Scout
 
-Pulls top posts from Reddit subreddits (wallstreetbets, cryptocurrency, python) and shows engagement metrics — upvotes, comments, upvote ratio. Subreddit selector to switch between communities.
+Pulls top posts from Reddit subreddits and shows engagement metrics - upvotes, comments, upvote ratio. Subreddit selector to switch between communities.
 
 ## Why
 
@@ -8,7 +8,7 @@ Wanted to see what content gains traction in different communities without manua
 
 ## Stack
 
-Next.js 15, Turso (libSQL), Recharts, GitHub Actions, Vercel
+Next.js 15, libSQL, Recharts, GitHub Actions, Vercel
 
 ## Live
 
